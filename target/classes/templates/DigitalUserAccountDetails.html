@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base_success::page(~{::section})">
+<head>
+<script th:src="@{/js/script.js}"></script>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Login Page</title>
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="card">
+						<div class="card-body">
+							<h1 class="text-center mb-4">Account Details</h1>
+							<!-- Check if account details object exists -->
+							<form id="accountDetailsForm"
+								th:action="@{/digitalUserAccountDetails}" method="post"
+								enctype="multipart/form-data" th:if="${accountDetails != null}">
+								<div class="form-group">
+									<!-- Set input value from object if it exists -->
+									<input type="text" class="form-control" id="recharge-type"
+										aria-describedby="emailHelp" placeholder="Account Type"
+										required="true" value="Digital" readonly>
+								</div>
+								UPI ID
+								<div class="form-group">
+									<!-- Set input value from object if it exists -->
+									<input type="text" name="upiId" class="form-control" id="upiId"
+										placeholder="Enter UPI ID" th:value="${accountDetails.upiId}">
+								</div>
+								<!-- Upload QR Code -->
+								<div class="form-group">
+									<label for="qrCode">QR Code</label> <br>
+									<!-- Display the QR code image if it exists -->
+									<img th:if="${accountDetailsQR != null}"
+										th:src="'data:image/png;base64,' + ${accountDetailsQR}"
+										alt="QR Code" style="max-width: 100px; height: auto;">
+								</div>
+
+								<!-- No submit button if account details object exists -->
+								<!-- Buttons -->
+								<div class="container text-center mt-3">
+									<!-- No submit button -->
+								</div>
+							</form>
+							<!-- Display "Submit Form" button if account details object doesn't exist -->
+							<div th:if="${accountDetails == null}">
+								<form id="accountDetailsForm"
+									th:action="@{/digitalUserAccountDetails}" method="post"
+									enctype="multipart/form-data">
+									<div class="form-group">
+										<input type="text" class="form-control" id="recharge-type"
+											aria-describedby="emailHelp" placeholder="Account Type"
+											required="true" value="Digital" readonly>
+									</div>
+									UPI ID
+									<div class="form-group">
+										<input type="text" name="upiId" class="form-control"
+											id="upiId" placeholder="Enter UPI ID" required="required">
+									</div>
+									<!-- Upload QR Code -->
+									<div class="form-group">
+    <label for="qrCode">Upload QR Code (Max 1 MB)</label>
+    <input type="file" name="qr" id="qrCode" accept="image/*" onchange="validateFileSize(this)" required="required">
+</div>
+
+<!-- Submit button -->
+<div class="container text-center mt-3">
+    <button id="submitButton" type="submit" class="btn btn-primary mr-3" >Submit Form</button>
+</div>
+
+<script>
+    function validateFileSize(input) {
+        const maxSize = 1024 * 1024; // 1 MB in bytes
+        if (input.files && input.files[0]) {
+            const fileSize = input.files[0].size;
+            if (fileSize > maxSize) {
+                alert('Please select an image file smaller than 1 MB.');
+                // Clear the file input field
+                input.value = '';
+            } 
+        }
+    }
+</script>
+
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base_admin_success::page(~{::section})}">
+
+<head>
+    <script th:src="@{/js/script.js}"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recharge Page</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <section>
+
+        <div class="container">
+        <br>
+            <!-- Back button -->
+            <a href="/allUsers" class="btn btn-primary">Back</a>
+
+            <div class="row justify-content-between">
+                <div class="col-md-5">
+                    <!-- Risky Account Details -->
+                    <h3>Risky Account Details</h3>
+<div th:if="${riskyAccountDto == null}">
+                        <p>No risky account details found.</p>
+                    </div>
+                    <form th:if="${riskyAccountDto != null}">                        <div class="form-group">
+                            <label for="riskyAccountNo">Account Number</label>
+                            <input type="text" class="form-control" id="riskyAccountNo" th:value="${riskyAccountDto.accountNo}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="riskyAccountHolderName">Account Holder Name</label>
+                            <input type="text" class="form-control" id="riskyAccountHolderName" th:value="${riskyAccountDto.accountHolderName}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="riskyBankName">Bank Name</label>
+                            <input type="text" class="form-control" id="riskyBankName" th:value="${riskyAccountDto.bankName}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="riskyIfscCode">IFSC Code</label>
+                            <input type="text" class="form-control" id="riskyIfscCode" th:value="${riskyAccountDto.ifscCode}" disabled>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-md-5">
+                    <!-- User Account Details -->
+                    <h3>Safe/Digital Account Details</h3>
+<div th:if="${userAccountDto == null}">
+                        <p>No safe/digital account details found.</p>
+                    </div>
+                    <form th:if="${userAccountDto != null}">                        <div class="form-group">
+                            <label for="userAccountNo">Account Number</label>
+                            <input type="text" class="form-control" id="userAccountNo" th:value="${userAccountDto.accountNo}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="userAccountHolderName">Account Holder Name</label>
+                            <input type="text" class="form-control" id="userAccountHolderName" th:value="${userAccountDto.accountHolderName}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="userBankName">Bank Name</label>
+                            <input type="text" class="form-control" id="userBankName" th:value="${userAccountDto.bankName}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="userIfscCode">IFSC Code</label>
+                            <input type="text" class="form-control" id="userIfscCode" th:value="${userAccountDto.ifscCode}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="userUpiId">UPI ID</label>
+                            <input type="text" class="form-control" id="userUpiId" th:value="${userAccountDto.upiId}" disabled>
+                        </div>
+                        <div class="form-group" th:if="${userAccountDto.qrCode != null}">
+                            <label for="userQrCode">QR Code</label>
+    <img th:if="${accountDetailsQR != null}" th:src="'data:image/png;base64,' + ${accountDetailsQR}" alt="QR Code" style="max-width: 100px; height: auto;">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</body>
+
+</html>
